@@ -1,8 +1,8 @@
-:global input do={
+:global btInput do={
   :return;
 }
 
-:global upper do={
+:global btUpper do={
   :local rest [:pick $1 0];
   :local last [:pick $1 1 [:len $1]];
   :if ($rest="a") do={:set $rest "A";}
@@ -18,7 +18,7 @@
   :return ($rest . $last);
 }
 
-:global coordInt do={
+:global btCoordInt do={
   :local response 0;
   :if ($1="A") do={:set $response 1;}
   :if ($1="B") do={:set $response 2;}
@@ -34,7 +34,7 @@
   :return $response;
 }
 
-:global coordChar do={
+:global btCoordChar do={
   :local response 0;
   :if ($1="1") do={:set $response "A";}
   :if ($1="2") do={:set $response "B";}
@@ -50,14 +50,14 @@
   :return $response;
 }
 
-:global drawTable do={
-  :global coordChar;
+:global btDrawTable do={
+  :global btCoordChar;
   :put "     1  2  3  4  5  6  7  8  9  10";
   :put "    +--+--+--+--+--+--+--+--+--+--+";
   :for x from=1 to=10 do={
-    :local line ("  ".[$coordChar $x]." |");
+    :local line ("  ".[$btCoordChar $x]." |");
     :for y from=1 to=10 do={
-      :local coords ([$coordChar $x]."$y");
+      :local coords ([$btCoordChar $x]."$y");
       :local value ($1->$coords);
       :if ($value="0") do={:set $line ($line . "  |")};
       :if ($value="1") do={:set $line ($line . "[]|")};
