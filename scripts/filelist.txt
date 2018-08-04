@@ -1,1 +1,1 @@
-battletik.rsc battletik-functions.rsc 
+battletik.rsc battletik-functions.rsc battletik-functions-uninstall.rsc 
