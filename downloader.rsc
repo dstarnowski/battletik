@@ -16,13 +16,13 @@
   :local space [:find $list " " $position];
   :if ([:len $space]>0) do={
     :if (($space-$position)>3) do={
-      :local fileName [:pick list $position $space];
+      :local fileName [:pick $list $position $space];
       /tool fetch mode=https url="$url/$fileName";
     }
     :set $position ($space+1);
   } else={
     :if (([:len $list]-$position)>3) do={
-      :local fileName [:pick list $position [:len $list]];
+      :local fileName [:pick $list $position [:len $list]];
       /tool fetch mode=https url="$url/$fileName";
     }
     :set $position 0;
