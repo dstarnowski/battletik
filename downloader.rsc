@@ -2,9 +2,11 @@
 :local user "startik";
 :local project "battletik";
 :local branch "devel";
-:local fileList "filelist.txt";
 
-:local url "https://raw.githubusercontent.com/$user/$project/$branch";
+:local fileList "filelist.txt";
+:local subdir "scripts";
+
+:local url "https://raw.githubusercontent.com/$user/$project/$branch/$subdir";
 /tool fetch mode=https url="$url/$fileList";
 :delay 1s;
 
