@@ -1,7 +1,11 @@
+#Functions imported by BattleTik program
+
+# btInput - allowing user interaction, waiting for "value: " to be entered, returning it as result
 :global btInput do={
   :return;
 }
 
+# btUpper - function changing lowercase coordinates to uppercase, e.g. [$btUpper "d4"] = "D4"
 :global btUpper do={
   :local rest [:pick $1 0];
   :local last [:pick $1 1 [:len $1]];
@@ -18,6 +22,7 @@
   :return ($rest . $last);
 }
 
+# btCoordInt - function returning the number of row described by letter, e.g. [$btCoordInt "C"] = 3
 :global btCoordInt do={
   :local response 0;
   :if ($1="A") do={:set $response 1;}
@@ -34,6 +39,7 @@
   :return $response;
 }
 
+# btCoordChar - function translating the number of row to the letter, e.g. [$btCoordChar 8] = "H"
 :global btCoordChar do={
   :local response 0;
   :if ($1="1") do={:set $response "A";}
@@ -50,6 +56,7 @@
   :return $response;
 }
 
+# btDrawTable - initial function drawing the table of battleships (will be changed)
 :global btDrawTable do={
   :global btCoordChar;
   :put "     1  2  3  4  5  6  7  8  9  10";
