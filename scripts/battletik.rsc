@@ -7,7 +7,6 @@
 :global btCoordChar;
 :global btCoordInt;
 :global btCheckNeighbors;
-:global btCheckCoords
 
 # Setting the initial variables
 :local localTable [:toarray ""];
