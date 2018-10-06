@@ -64,7 +64,7 @@
     }
     :if (($direction="l") or ($direction="L")) do={
       :for xi from=$x to=($x-$shipLength+1) do={
-        :if (($xi<0) and ($deployed=1)) do={
+        :if (($xi<1) and ($deployed=1)) do={
           :set $deployed -1;
         }
         :if (([$btCheckNeighbors $localTable ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
@@ -84,7 +84,7 @@
     }
     :if (($direction="u") or ($direction="U")) do={
       :for yi from=$y to=($y-$shipLength+1) do={
-        :if (($yi<0) and ($deployed=1)) do={
+        :if (($yi<1) and ($deployed=1)) do={
           :set $deployed -1;
         }
         :if (([$btCheckNeighbors $localTable ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
