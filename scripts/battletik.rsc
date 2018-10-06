@@ -3,6 +3,7 @@
 # Global funcrions required
 /system script run bt-test-uninstall;
 /system script run bt-test-functions;
+:global btInput;
 :global btDrawTable;
 :global btCoordChar;
 :global btCoordInt;
