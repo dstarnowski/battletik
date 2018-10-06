@@ -3,6 +3,7 @@
 # Global funcrions required
 /system script run bt-test-uninstall;
 /system script run bt-test-functions;
+:global btUpper;
 :global btInput;
 :global btDrawTable;
 :global btCoordChar;
@@ -47,6 +48,7 @@
       :set $coords $input;
       :set $direction "d";
     }
+    :set $coords [$btUpper $coords];
     :local deployed 1;
     :local x [:pick $coords 1 [:len $coords]];
     :local y [$btCoordInt [:pick $coords 0]];
