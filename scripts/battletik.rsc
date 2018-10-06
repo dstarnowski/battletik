@@ -84,13 +84,20 @@
         :if (([$btCheckCoords ([$btCoordChar $yi]."$x")]=0) and ($deployed=1)) do={
           :set $deployed -1;
         }
-        :if (([$btCheckNeighbors ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
+        :if (([$btCheckNeighbors $localTable ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
           :set $deployed -2;
         }
       }
     }
     :if ($deployed=1) do={
-    
+      :if (($direction="r") or ($direction="R")) do={
+        :for xi from=$x to=($x+$shipLength-1) do={
+          :local xapply $xi;
+          :local yapply [$btCoordChar $y];
+          :local apply ("$yapply"."$xapply");
+          :set ($localTable->$apply) 1;
+        }
+      }
     }
   } while=($deployed<1)
 }
