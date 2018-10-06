@@ -26,7 +26,7 @@
 
 # Game beginning - setting the ships on the board
 :local shipLengths {4;3;3;2;2;2;1;1;1;1};
-:foreach $shipLength in=$shipLengths do={
+:foreach shipLength in=$shipLengths do={
   :local deployed 0;
   :do {
     :if ($deployed=0) do={
