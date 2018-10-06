@@ -102,7 +102,7 @@
         }
       }
     }
-  } while=($deployed<1)
+  } while=($deployed=1)
 }
 
 $btDrawTable $localTable $remoteTable "This is the table" "Please, wait...4";
