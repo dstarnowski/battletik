@@ -5,7 +5,9 @@
 /system script run bt-test-functions;
 :global btDrawTable;
 :global btCoordChar;
+:global btCoordInt;
 :global btCheckNeighbors;
+:global btCheckCoords
 
 # Setting the initial variables
 :local localTable [:toarray ""];
@@ -26,18 +28,70 @@
 # Game beginning - setting the ships on the board
 :local shipLengths {4;3;3;2;2;2;1;1;1;1};
 :foreach $shipLength in=$shipLengths do={
-  :local deployed -1;
+  :local deployed 0;
   :do {
-    $btDrawTable $localTable $remoteTable "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+    :if ($deployed=0) do={
+      $btDrawTable $localTable $remoteTable "" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+    }
+    :if ($deployed=-1) do={
+      $btDrawTable $localTable $remoteTable "ERROR: the ship goes out of the board!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+    }
+    :if ($deployed=-2) do={
+      $btDrawTable $localTable $remoteTable "ERROR: the ship touches another ship!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+    }
     :local input [$btInput];
-    :local coords [:toarray ""];
     :local direction [:pick $input ([:len $input]-1)];
-    :local coordStart [:pick $input 0 ([:len $input]-1)];
+    :local coords [:pick $input 0 ([:len $input]-1)];
     :if ([:tonum "$direction"]!="$direction") do={
-      :set $coordStart $input;
+      :set $coords $input;
       :set $direction "d";
     }
+    :local $deployed 1;
+    :local x [:pick $coords 1 [:len $coords]];
+    :local y [$btCoordInt [:pick $coords 0]];
+    :if (($direction="r") or ($direction="R")) do={
+      :for xi from=$x to=($x+$shipLength-1) do={
+        :if (([$btCheckCoords ([$btCoordChar $y]."$xi")]=0) and ($deployed=1)) do={
+          :set $deployed -1;
+        }
+        :if (([$btCheckNeighbors ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
+          :set $deployed -2;
+        }
+      }
+    }
+    :if (($direction="l") or ($direction="L")) do={
+      :for xi from=$x to=($x-$shipLength+1) do={
+        :if (([$btCheckCoords ([$btCoordChar $y]."$xi")]=0) and ($deployed=1)) do={
+          :set $deployed -1;
+        }
+        :if (([$btCheckNeighbors ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
+          :set $deployed -2;
+        }
+      }
+    }
+    :if (($direction="d") or ($direction="D")) do={
+      :for yi from=$y to=($y+$shipLength-1) do={
+        :if (([$btCheckCoords ([$btCoordChar $yi]."$x")]=0) and ($deployed=1)) do={
+          :set $deployed -1;
+        }
+        :if (([$btCheckNeighbors ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
+          :set $deployed -2;
+        }
+      }
+    }
+    :if (($direction="u") or ($direction="U")) do={
+      :for yi from=$y to=($y-$shipLength+1) do={
+        :if (([$btCheckCoords ([$btCoordChar $yi]."$x")]=0) and ($deployed=1)) do={
+          :set $deployed -1;
+        }
+        :if (([$btCheckNeighbors ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
+          :set $deployed -2;
+        }
+      }
+    }
+    :if ($deployed=1) do={
     
+    }
   } while=($deployed<1)
 }
 
