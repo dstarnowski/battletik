@@ -60,7 +60,7 @@
 # $1 - own table, $2 - enemy table, $3 $4 - lines of status text
 :global btDrawTable do={
   :global btCoordChar;
-  :local screen "";
+  :local screen "\n\r\n\r\n\r\n\r";
   :set $screen ($screen. "                  YOU                                  ENEMY\n\r");
   :set $screen ($screen. "     1  2  3  4  5  6  7  8  9  10         1  2  3  4  5  6  7  8  9  10\n\r");
   :set $screen ($screen. "    +--+--+--+--+--+--+--+--+--+--+       +--+--+--+--+--+--+--+--+--+--+\n\r");
