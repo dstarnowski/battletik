@@ -59,9 +59,9 @@
 # btDrawTable - initial function drawing the table of battleships, $1 - own, $2 - enemy
 :global btDrawTable do={
   :global btCoordChar;
-  :put "                  YOU                              ENEMY";
-  :put "     1  2  3  4  5  6  7  8  9  10     1  2  3  4  5  6  7  8  9  10";
-  :put "    +--+--+--+--+--+--+--+--+--+--+   +--+--+--+--+--+--+--+--+--+--+";
+  :put "                  YOU                                  ENEMY";
+  :put "     1  2  3  4  5  6  7  8  9  10         1  2  3  4  5  6  7  8  9  10";
+  :put "    +--+--+--+--+--+--+--+--+--+--+       +--+--+--+--+--+--+--+--+--+--+";
   :for x from=1 to=10 do={
     :local line ("  ".[$btCoordChar $x]." |");
     :for y from=1 to=10 do={
@@ -72,7 +72,7 @@
       :if ($value="2") do={:set $line ($line . "::|")};
       :if ($value="3") do={:set $line ($line . "##|")};
     }
-    :set $line ($line." ".[$btCoordChar $x]." |");
+    :set $line ($line."   ".[$btCoordChar $x]."   |");
     :for y from=1 to=10 do={
       :local coords ([$btCoordChar $x]."$y");
       :local value ($2->$coords);
@@ -82,6 +82,6 @@
       :if ($value="3") do={:set $line ($line . "##|")};
     }
     :put "$line";
-    :put "    +--+--+--+--+--+--+--+--+--+--+   +--+--+--+--+--+--+--+--+--+--+";
+    :put "    +--+--+--+--+--+--+--+--+--+--+       +--+--+--+--+--+--+--+--+--+--+";
   }
 }
