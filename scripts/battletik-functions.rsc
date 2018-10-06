@@ -89,6 +89,7 @@
 :set $screen ($screen . "\n\r");
 :set $screen ($screen . "$3\n\r");
 :set $screen ($screen . "$4\n\r");
+:set $screen ($screen . "$5\n\r");
 :put $screen;
 }
 
