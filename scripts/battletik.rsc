@@ -27,16 +27,17 @@
 # Game beginning - setting the ships on the board
 :local shipLengths {4;3;3;2;2;2;1;1;1;1};
 :foreach shipLength in=$shipLengths do={
+  :local message "This ship will have the length of $shipLength squares";
   :local deployed 0;
   :do {
     :if ($deployed=0) do={
-      $btDrawTable $localTable $remoteTable "" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+      $btDrawTable $localTable $remoteTable "" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" $message;
     }
     :if ($deployed=-1) do={
-      $btDrawTable $localTable $remoteTable "ERROR: the ship goes out of the board!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+      $btDrawTable $localTable $remoteTable "ERROR: the ship goes out of the board!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" $message;
     }
     :if ($deployed=-2) do={
-      $btDrawTable $localTable $remoteTable "ERROR: the ship touches another ship!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" "This ship will have the length of $shipLength squares";
+      $btDrawTable $localTable $remoteTable "ERROR: the ship touches another ship!" "Please, enter coordinates and direction (L,R,D,U) to deploy the ship, e.g. D5R" $message;
     }
     :local input [$btInput];
     :local direction [:pick $input ([:len $input]-1)];
@@ -45,7 +46,7 @@
       :set $coords $input;
       :set $direction "d";
     }
-    :local $deployed 1;
+    :local deployed 1;
     :local x [:pick $coords 1 [:len $coords]];
     :local y [$btCoordInt [:pick $coords 0]];
     :if (($direction="r") or ($direction="R")) do={
