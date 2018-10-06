@@ -56,7 +56,8 @@
   :return $response;
 }
 
-# btDrawTable - initial function drawing the table of battleships, $1 - own, $2 - enemy
+# btDrawTable - initial function drawing the table of battleships
+# $1 - own table, $2 - enemy table, $3 $4 - lines of status text
 :global btDrawTable do={
   :global btCoordChar;
   :local screen "";
@@ -85,5 +86,8 @@
     :set $screen ($screen. "$line\n\r");
     :set $screen ($screen. "    +--+--+--+--+--+--+--+--+--+--+       +--+--+--+--+--+--+--+--+--+--+\n\r");
   }
+:set $screen ($screen . "\n\r");
+:set $screen ($screen . "$3\n\r");
+:set $screen ($screen . "$4\n\r");
 :put $screen;
 }
