@@ -91,3 +91,22 @@
 :set $screen ($screen . "$4\n\r");
 :put $screen;
 }
+
+# btCheckNeighbors - function checking if we can put new ship element on a field or not
+# e.g. [$btCheckNeighbors $localTable "D4"] = 0
+# 0 - no neighbors, we can deploy, 1 - neighbors found, can't deploy
+:global btCheckNeighbors do={
+  :global btCoordInt;
+  :local neighborCount 0;
+  :local y [$btCoordInt [:pick $2 0]];
+  :local x [:pick $2 1 [:len $2]];
+  :for xi from=($x-1) to=($x+1) do={
+    :for yi from=($y-1) to=($y+1) do={
+      :if (($yi>=1) and ($yi<=10) and ($xi>=1) and ($xi<=10)) do={
+        :local coords ([$btCoordChar $yi] . $xi);
+        :if (($1->$coords)>0) do={:set $neighborCount 1;}
+      }
+    }
+  }
+  :return $neighborCount;
+}
