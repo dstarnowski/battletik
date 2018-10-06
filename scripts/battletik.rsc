@@ -50,37 +50,37 @@
     :local y [$btCoordInt [:pick $coords 0]];
     :if (($direction="r") or ($direction="R")) do={
       :for xi from=$x to=($x+$shipLength-1) do={
-        :if (([$btCheckCoords ([$btCoordChar $y]."$xi")]=0) and ($deployed=1)) do={
+        :if (($xi>10) and ($deployed=1)) do={
           :set $deployed -1;
         }
-        :if (([$btCheckNeighbors ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
+        :if (([$btCheckNeighbors $localTable ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
           :set $deployed -2;
         }
       }
     }
     :if (($direction="l") or ($direction="L")) do={
       :for xi from=$x to=($x-$shipLength+1) do={
-        :if (([$btCheckCoords ([$btCoordChar $y]."$xi")]=0) and ($deployed=1)) do={
+        :if (($xi<0) and ($deployed=1)) do={
           :set $deployed -1;
         }
-        :if (([$btCheckNeighbors ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
+        :if (([$btCheckNeighbors $localTable ([$btCoordChar $y]."$xi")]>0) and ($deployed=1)) do={
           :set $deployed -2;
         }
       }
     }
     :if (($direction="d") or ($direction="D")) do={
       :for yi from=$y to=($y+$shipLength-1) do={
-        :if (([$btCheckCoords ([$btCoordChar $yi]."$x")]=0) and ($deployed=1)) do={
+        :if (($yi>10) and ($deployed=1)) do={
           :set $deployed -1;
         }
-        :if (([$btCheckNeighbors ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
+        :if (([$btCheckNeighbors $localTable ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
           :set $deployed -2;
         }
       }
     }
     :if (($direction="u") or ($direction="U")) do={
       :for yi from=$y to=($y-$shipLength+1) do={
-        :if (([$btCheckCoords ([$btCoordChar $yi]."$x")]=0) and ($deployed=1)) do={
+        :if (($yi<0) and ($deployed=1)) do={
           :set $deployed -1;
         }
         :if (([$btCheckNeighbors $localTable ([$btCoordChar $yi]."$x")]>0) and ($deployed=1)) do={
