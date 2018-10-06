@@ -44,7 +44,7 @@
     :local input [$btInput];
     :local direction [:pick $input ([:len $input]-1)];
     :local coords [:pick $input 0 ([:len $input]-1)];
-    :if ([:tonum "$direction"]!="$direction") do={
+    :if ([:tonum "$direction"]="$direction") do={
       :set $coords $input;
       :set $direction "d";
     }
@@ -97,6 +97,30 @@
         :for xi from=$x to=($x+$shipLength-1) do={
           :local xapply $xi;
           :local yapply [$btCoordChar $y];
+          :local apply ("$yapply"."$xapply");
+          :set ($localTable->$apply) 1;
+        }
+      }
+      :if (($direction="l") or ($direction="L")) do={
+        :for xi from=$x to=($x-$shipLength+1) do={
+          :local xapply $xi;
+          :local yapply [$btCoordChar $y];
+          :local apply ("$yapply"."$xapply");
+          :set ($localTable->$apply) 1;
+        }
+      }
+      :if (($direction="d") or ($direction="D")) do={
+        :for yi from=$y to=($y+$shipLength-1) do={
+          :local xapply $x;
+          :local yapply [$btCoordChar $yi];
+          :local apply ("$yapply"."$xapply");
+          :set ($localTable->$apply) 1;
+        }
+      }
+      :if (($direction="u") or ($direction="U")) do={
+        :for yi from=$y to=($y-$shipLength+1) do={
+          :local xapply $x;
+          :local yapply [$btCoordChar $yi];
           :local apply ("$yapply"."$xapply");
           :set ($localTable->$apply) 1;
         }
